@@ -1,0 +1,32 @@
+Q. 1) Write AJAX program where the user is requested to write his or her name in a text box, and the server keeps sending back responses while the user is typing. If the user name is not entered then the message displayed will be,“Stranger, please tell me your name!”. If the name is Rohit, Virat, Dhoni,Ashwin or Harbhajan , the server responds with “Hello, master !”. If the name
+is anything else, the message will be “, I don’t know you!”
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>AJAX Program</title>
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></scrip
+t>
+</head>
+<body>
+<label for="name">Enter your name:</label>
+<input type="text" id="name" name="name">
+<div id="message"></div>
+<script>
+$(document).ready(function(){
+$("#name").keyup(function(){
+var name = $("#name").val();
+if(name == ""){
+$("#message").html("Stranger, please tell me your name!");
+} else if(name == "Rohit" || name == "Virat" || name ==
+"Dhoni" || name == "Ashwin" || name == "Harbhajan"){
+$("#message").html("Hello, master!");
+} else {
+$("#message").html(name + ", I don't know you!");
+}
+});
+});
+</script>
+</body>
+</html>

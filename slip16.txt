@@ -1,0 +1,73 @@
+Q. 1) Write Ajax program to get book details from XML file when user select a book name. Create XML file for storing details of book(title, author, year,price).
+
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+<book>
+<title>1984</title>
+<author>George Orwell</author>
+<year>1949</year>
+<price>10.99</price>
+</book>
+<book>
+<title>The Great Gatsby</title>
+<author>F. Scott Fitzgerald</author>
+<year>1925</year>
+<price>12.99</price>
+</book>
+<book>
+<title>To Kill a Mockingbird</title>
+<author>Harper Lee</author>
+<year>1960</year>
+<price>9.99</price>
+</book>
+</books>
+HTML Code:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Details</title>
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></scrip
+t>
+<script>
+$(document).ready(function() {
+$("#bookSelect").change(function() {
+var selectedBook = $(this).children("option:selected").val();
+$.ajax({
+type: "GET",
+url: "books.xml",
+dataType: "xml",
+success: function(xml) {
+$(xml).find("book").each(function() {
+var title = $(this).find("title").text();
+var author = $(this).find("author").text();
+var year = $(this).find("year").text();
+var price = $(this).find("price").text();
+if (title === selectedBook) {
+$("#bookDetails").html("Title: " + title + "<br>Author: " +
+author + "<br>Year: " + year + "<br>Price: $" + price);
+}
+});
+},
+error: function() {
+alert("Error loading XML file.");
+}
+});
+});
+});
+</script>
+</head>
+<body>
+<h1>Book Details</h1>
+<form>
+<label for="bookSelect">Select a book:</label>
+<select id="bookSelect">
+<option value="">--Select--</option>
+<option value="1984">1984</option>
+<option value="The Great Gatsby">The Great Gatsby</option>
+<option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
+</select>
+</form>
+<div id="bookDetails"></div>
+</body>
+</html>

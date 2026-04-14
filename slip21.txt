@@ -1,0 +1,16 @@
+Q1.Add a JavaScript File in Codeigniter. The Javascript code should check whether a number is positive or negative.
+
+<script>
+function check()
+{
+var n=document.getElementById("num").value;
+if(n>0)
+ alert("Positive");
+else if(n<0)
+ alert("Negative");
+else
+ alert("Zero");
+}
+</script>
+<input type="text" id="num">
+<button onclick="check()">Check</button>

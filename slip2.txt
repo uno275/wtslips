@@ -1,0 +1,77 @@
+Q. 1Write a PHP script to change the preferences of your web page like font style, font size, font color,background color using cookie. Display selected setting on next web page and actual implementation(with new settings) on third page (Use Cookies).
+index.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Change Preferences</title>
+</head>
+<body>
+<h2>Change Page Preferences</h2>
+<form action="setPreferences.php" method="post">
+<label>Font Style:</label>
+<select name="font_style">
+<option value="Arial">Arial</option>
+<option value="Verdana">Verdana</option>
+<option value="Times New Roman">Times New Roman</option>
+</select><br><br>
+<label>Font Size:</label>
+<select name="font_size">
+<option value="small">Small</option>
+<option value="medium">Medium</option>
+<option value="large">Large</option>
+</select><br><br>
+<label>Font Color:</label>
+<select name="font_color">
+<option value="black">Black</option>
+<option value="red">Red</option>
+<option value="blue">Blue</option>
+</select><br><br>
+<label>Background Color:</label>
+<select name="bg_color">
+<option value="white">White</option>
+<option value="lightgrey">Light Grey</option>
+<option value="lightblue">Light Blue</option>
+</select><br><br>
+<input type="submit" name="submit" value="Save Preferences">
+</form>
+</body>
+</html>
+setpreferences.php
+<?php
+if (isset($_POST['submit'])) {
+$font_style = $_POST['font_style'];
+$font_size = $_POST['font_size'];
+$font_color = $_POST['font_color'];
+$bg_color = $_POST['bg_color'];
+// set cookies
+setcookie('font_style', $font_style, time() + (86400 * 30), '/');
+setcookie('font_size', $font_size, time() + (86400 * 30), '/');
+setcookie('font_color', $font_color, time() + (86400 * 30), '/');
+setcookie('bg_color', $bg_color, time() + (86400 * 30), '/');
+header('Location: displayPreferences.php');
+}
+?>
+displaypreferenes.php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Display Preferences</title>
+<style>
+body {
+font-family: <?php echo $_COOKIE['font_style']; ?>;
+font-size: <?php echo $_COOKIE['font_size']; ?>;
+color: <?php echo $_COOKIE['font_color']; ?>;
+background-color: <?php echo $_COOKIE['bg_color']; ?>;
+}
+</style>
+</head>
+<body>
+<h2>Preferences</h2>
+<p>Font Style: <?php echo $_COOKIE['font_style']; ?></p>
+<p>Font Size: <?php echo $_COOKIE['font_size']; ?></p>
+<p>Font Color: <?php echo $_COOKIE['font_color']; ?></p>
+<p>Background Color: <?php echo $_COOKIE['bg_color']; ?></p>
+<a href="index.php">Change Preferences</a>
+<a href="actualPage.php">Go to Actual Page</a>
+</body>
+</html>

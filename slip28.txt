@@ -1,0 +1,189 @@
+Q1) C-LOOK Disk Scheduling
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void sort(int arr[], int n)
+{
+    int i, j, temp;
+    for(i = 0; i < n - 1; i++)
+    {
+        for(j = 0; j < n - i - 1; j++)
+        {
+            if(arr[j] > arr[j + 1])
+            {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int req[100], left[100], right[100];
+    int n, head, i, direction;
+    int lcount = 0, rcount = 0, total = 0;
+
+    printf("Enter total number of requests: ");
+    scanf("%d", &n);
+
+    printf("Enter request sequence:\n");
+    for(i = 0; i < n; i++)
+        scanf("%d", &req[i]);
+
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+
+    printf("Enter direction (0 for Left, 1 for Right): ");
+    scanf("%d", &direction);
+
+    for(i = 0; i < n; i++)
+    {
+        if(req[i] < head)
+            left[lcount++] = req[i];
+        else
+            right[rcount++] = req[i];
+    }
+
+    sort(left, lcount);
+    sort(right, rcount);
+
+    printf("\nOrder of service using C-LOOK:\n");
+    printf("%d ", head);
+
+    if(direction == 1)
+    {
+        for(i = 0; i < rcount; i++)
+        {
+            total += abs(head - right[i]);
+            head = right[i];
+            printf("-> %d ", head);
+        }
+
+        for(i = 0; i < lcount; i++)
+        {
+            total += abs(head - left[i]);
+            head = left[i];
+            printf("-> %d ", head);
+        }
+    }
+    else
+    {
+        for(i = lcount - 1; i >= 0; i--)
+        {
+            total += abs(head - left[i]);
+            head = left[i];
+            printf("-> %d ", head);
+        }
+
+        for(i = rcount - 1; i >= 0; i--)
+        {
+            total += abs(head - right[i]);
+            head = right[i];
+            printf("-> %d ", head);
+        }
+    }
+
+    printf("\n\nTotal head movements = %d\n", total);
+
+    return 0;
+}
+
+
+
+
+
+
+Enter total number of requests: 9
+Enter request sequence:
+56 59 40 19 91 161 151 39 185
+Enter initial head position: 48
+Enter direction (0 for Left, 1 for Right): 1
+
+Order of service using C-LOOK:
+48 -> 56 -> 59 -> 91 -> 151 -> 161 -> 185 -> 19 -> 39 -> 40
+
+Total head movements = 324
+
+
+
+Q.2 Write an MPI program to calculate sum of randomly generated 1000 numbers
+(stored in array) on a cluster
+
+
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define SIZE 1000
+
+int main(int argc, char *argv[])
+{
+    int rank, nprocs, i;
+    int local_n, local_sum = 0, total_sum = 0;
+    int data[SIZE];
+    int *sub_data;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+
+    if (SIZE % nprocs != 0)
+    {
+        if (rank == 0)
+            printf("1000 numbers cannot be divided equally among %d processes\n", nprocs);
+        MPI_Finalize();
+        return 0;
+    }
+
+    local_n = SIZE / nprocs;
+    sub_data = (int *)malloc(local_n * sizeof(int));
+
+    if (rank == 0)
+    {
+        srand(time(NULL));
+        for (i = 0; i < SIZE; i++)
+        {
+            data[i] = rand() % 100;
+        }
+        printf("Generated 1000 random numbers\n");
+    }
+
+    MPI_Scatter(data, local_n, MPI_INT,
+                sub_data, local_n, MPI_INT,
+                0, MPI_COMM_WORLD);
+
+    for (i = 0; i < local_n; i++)
+    {
+        local_sum += sub_data[i];
+    }
+
+    printf("Process %d local sum = %d\n", rank, local_sum);
+
+    MPI_Reduce(&local_sum, &total_sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (rank == 0)
+    {
+        printf("Total sum = %d\n", total_sum);
+    }
+
+    free(sub_data);
+    MPI_Finalize();
+    return 0;
+}
+
+
+
+
+ouput:-
+
+mpicc program.c
+mpirun -np 4 ./a.out
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voter Validation</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        input { margin: 5px; padding: 8px; }
+        button { padding: 10px; }
+        #result { margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>Voter Details Form</h2>
+
+<form onsubmit="validateForm(); return false;">
+    Name: <input type="text" id="name"><br>
+    Age: <input type="number" id="age"><br>
+    Nationality: <input type="text" id="nationality"><br>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+function validateForm() {
+
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var nationality = document.getElementById("nationality").value;
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("result").innerHTML = this.responseText;
+        }
+    };
+
+    xhttp.open("POST", "validate.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.send("name=" + name + "&age=" + age + "&nationality=" + nationality);
+}
+</script>
+
+</body>
+</html>
+
+
+
+//validate.php
+
+<?php
+
+$name = $_POST['name'];
+$age = $_POST['age'];
+$nationality = $_POST['nationality'];
+
+// Name validation (uppercase only)
+if (!preg_match("/^[A-Z ]+$/", $name)) {
+    echo "❌ Name must be in UPPERCASE letters only";
+    exit();
+}
+
+// Age validation
+if ($age < 18) {
+    echo "❌ Age must be 18 or above";
+    exit();
+}
+
+// Nationality validation
+if (strtolower($nationality) != "indian") {
+    echo "❌ Nationality must be Indian";
+    exit();
+}
+
+// If all valid
+echo "✅ Voter is eligible";
+
+?>

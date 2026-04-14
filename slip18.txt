@@ -1,0 +1,36 @@
+Q. 1) Write a Java Script Program to print Fibonacci numbers on onclick event.
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fibonacci Sequence</title>
+</head>
+<body>
+<h1>Fibonacci Sequence</h1>
+<p>Click the button below to print the first 20 Fibonacci numbers:</p>
+<button onclick="printFibonacci()">Print Fibonacci Sequence</button>
+<script>
+function printFibonacci() {
+let n = 20; // number of Fibonacci numbers to print
+let fibonacci = [0, 1]; // initialize the first two numbers of the
+sequence
+let output = ''; // initialize an empty string to hold the output
+// loop through the remaining numbers of the sequence and add them
+to the array
+for (let i = 2; i < n; i++) {
+fibonacci[i] = fibonacci[i-1] + fibonacci[i-2];
+}
+// loop through the array and append each number to the output
+string
+for (let i = 0; i < n; i++) {
+output += fibonacci[i] + ', ';
+}
+// remove the trailing comma and space from the last number in the
+sequence
+output = output.slice(0, -2);
+// display the output in an alert box
+alert(output);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+Q. 1) Write PHP script to read “book.xml” file into simpleXML object. Display attributes and elements .( simple_xml_load_file() function )
+<?php
+// Load the XML file into a SimpleXML object
+$xml = simplexml_load_file("book.xml");
+// Display the attributes and elements
+echo "Attributes:<br>";
+foreach ($xml->attributes() as $attr) {
+echo $attr->getName() . ": " . $attr . "<br>";
+}
+echo "<br>Elements:<br>";
+foreach ($xml->children() as $child) {
+echo $child->getName() . ": " . $child . "<br>";
+}
+?>

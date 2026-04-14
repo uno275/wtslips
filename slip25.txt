@@ -1,0 +1,18 @@
+Q. 1) Write a script to create “cricket.xml” file with multiple elements as shown below: Write a script to add multiple elements in “cricket.xml” file of category, country=”India”.
+
+<?php
+$xml = simplexml_load_file('cricket.xml');
+$team = $xml->addChild('Team');
+$team->addAttribute('country', 'India');
+$player1 = $team->addChild('player', 'Virat Kohli');
+$player1->addChild('runs', '12000');
+$player1->addChild('wicket', '4');
+$player2 = $team->addChild('player', 'Rohit Sharma');
+$player2->addChild('runs', '10000');
+$player2->addChild('wicket', '2');
+$player3 = $team->addChild('player', 'Jasprit Bumrah');
+$player3->addChild('runs', '300');
+$player3->addChild('wicket', '150');
+// Save the updated XML to the cricket.xml file
+$xml->asXML('cricket.xml');
+?>

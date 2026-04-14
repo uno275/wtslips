@@ -1,0 +1,29 @@
+Q. 1) Write a JavaScript function to validate username and password for a membership form.
+
+function validateForm() {
+var username = document.forms["membershipForm"]["username"].value;
+var password = document.forms["membershipForm"]["password"].value;
+
+if (username == "" || password == "") {
+alert("Please enter a username and password.");
+return false;
+}
+
+if (username.length < 4 || password.length < 6) {
+alert("Username must be at least 4 characters and password must be at
+least 6 characters.");
+return false;
+}
+
+if (!/^[a-zA-Z0-9]+$/.test(username)) {
+alert("Username can only contain letters and numbers.");
+return false;
+}
+if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(password)) {
+alert("Password must contain at least one uppercase letter, one lowercase
+letter, and one number.");
+return false;
+}
+
+return true;
+}

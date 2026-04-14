@@ -1,0 +1,30 @@
+Write a PHP script for the following: Design a form to accept a number from the user.Perform the operations and show the results.
+1. Fibonacci Series
+2. To find sum of the digits of that number (Use self processing page)
+
+<?php
+if(isset($_POST['num']))
+{
+$n=$_POST['num'];
+echo "Fibonacci Series:<br>";
+$a=0;$b=1;
+for($i=1;$i<=$n;$i++)
+{
+echo $a." ";
+$c=$a+$b;
+$a=$b;
+$b=$c;
+}
+$sum=0;$temp=$n;
+while($temp>0)
+{
+$sum+=$temp%10;
+$temp=(int)($temp/10);
+}
+echo "<br>Sum of digits=".$sum;
+}
+?>
+<form method="post">
+Enter number: <input type="text" name="num">
+<input type="submit">
+</form>

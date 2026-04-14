@@ -1,0 +1,78 @@
+Q. 1) Write a PHP script to accept Employee details (Eno, Ename, Address) on first page. On second age accept earning (Basic, DA, HRA). On third page print Employee information(Eno, Ename, Address,Basic, DA, HRA, Total) [ Use Session]First Page (employee_details.php):
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Details</title>
+</head>
+<body>
+<h1>Employee Details</h1>
+<form action="earnings.php" method="post">
+<label>Employee Number:</label>
+<input type="text" name="eno"><br>
+<label>Employee Name:</label>
+<input type="text" name="ename"><br>
+<label>Address:</label>
+<input type="text" name="address"><br>
+<input type="submit" value="Next">
+</form>
+</body>
+</html>
+<?php
+// Store employee details in session
+$_SESSION['eno'] = $_POST['eno'];
+$_SESSION['ename'] = $_POST['ename'];
+$_SESSION['address'] = $_POST['address'];
+?>
+Second Page (earnings.php):
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Earnings</title>
+</head>
+<body>
+<h1>Earnings</h1>
+<form action="employee_info.php" method="post">
+<label>Basic Salary:</label>
+<input type="text" name="basic"><br>
+<label>DA:</label>
+<input type="text" name="da"><br>
+<label>HRA:</label>
+<input type="text" name="hra"><br>
+<input type="submit" value="Next">
+</form>
+</body>
+</html>
+<?php
+// Store earnings in session
+$_SESSION['basic'] = $_POST['basic'];
+$_SESSION['da'] = $_POST['da'];
+$_SESSION['hra'] = $_POST['hra'];
+?>
+Third Page (employee_info.php):
+<?php
+session_start();
+// Calculate total salary
+$total = $_SESSION['basic'] + $_SESSION['da'] + $_SESSION['hra'];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Information</title>
+</head>
+<body>
+<h1>Employee Information</h1>
+<p>Employee Number: <?php echo $_SESSION['eno']; ?></p>
+<p>Employee Name: <?php echo $_SESSION['ename']; ?></p>
+<p>Address: <?php echo $_SESSION['address']; ?></p>
+<p>Basic Salary: <?php echo $_SESSION['basic']; ?></p>
+<p>DA: <?php echo $_SESSION['da']; ?></p>
+<p>HRA: <?php echo $_SESSION['hra']; ?></p>
+<p>Total Salary: <?php echo $total; ?></p>
+</body>
+</html>

@@ -1,0 +1,59 @@
+Q1,file in a tabular format when the user clicks on print button. Contact.dat file should contain srno, name, residence number, mobile number, Address.[Enter at least 3 record in contact.dat file]
+
+<button onclick="loadContacts()">Print Contacts</button>
+<table id="contacts">
+<thead>
+<tr>
+<th>Sr. No.</th>
+<th>Name</th>
+<th>Residence Number</th>
+<th>Mobile Number</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody id="contactsBody">
+</tbody>
+</table>
+function loadContacts() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+var contacts = JSON.parse(this.responseText);
+var table = document.getElementById("contactsBody");
+for (var i = 0; i < contacts.length; i++) {
+var row = table.insertRow(i);
+var srno = row.insertCell(0);
+var name = row.insertCell(1);
+var residenceNumber = row.insertCell(2);
+var mobileNumber = row.insertCell(3);
+var address = row.insertCell(4);
+srno.innerHTML = contacts[i].srno;
+name.innerHTML = contacts[i].name;
+residenceNumber.innerHTML = contacts[i].residenceNumber;
+mobileNumber.innerHTML = contacts[i].mobileNumber;
+address.innerHTML = contacts[i].address;
+}
+}
+};
+xhttp.open("GET", "readContacts.php", true);
+xhttp.send();
+}
+<?php
+$contacts = array();
+$file = fopen("contact.dat", "r");
+if ($file) {
+while (($line = fgets($file)) !== false) {
+$contact = array();
+$fields = explode(',', $line);
+$contact['srno'] = $fields[0];
+$contact['name'] = $fields[1];
+$contact['residenceNumber'] = $fields[2];
+$contact['mobileNumber'] = $fields[3];
+$contact['address'] = $fields[4];
+$contacts[] = $contact;
+}
+fclose($file);
+}
+header('Content-Type: application/json');
+echo json_encode($contacts);
+?>

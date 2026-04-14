@@ -1,0 +1,82 @@
+Q. 1) Create a table student having attributes(rollno, name, class) containing atleast 5 recodes . Using codeigniter, display all its records.
+
+
+$active_group = 'default';
+$query_builder = TRUE;
+$db['default'] = array(
+'dsn' => '',
+'hostname' => 'localhost',
+'username' => 'your_username',
+'password' => 'your_password',
+'database' => 'your_database',
+'dbdriver' => 'mysqli',
+'port' => '3306',
+'charset' => 'utf8',
+'prefix' => '',
+'strict_on' => FALSE,
+'encrypt' => FALSE,
+'compress' => FALSE,
+'failover' => array(),
+'ssl_verify' => FALSE,
+'options' => array()
+);
+//model
+<?php
+class Student_model extends CI_Model {
+public function __construct()
+{
+$this->load->database();
+}
+public function insert_students()
+{
+$data = array(
+array(
+'rollno' => 1,
+'name' => 'John',
+'class' => '10th'
+),
+array(
+'rollno' => 2,
+'name' => 'Jane',
+'class' => '11th'
+),
+array(
+'rollno' => 3,
+'name' => 'Bob',
+'class' => '10th'
+),
+array(
+'rollno' => 4,
+'name' => 'Alice',
+'class' => '12th'
+),
+array(
+'rollno' => 5,
+'name' => 'Mike',
+'class' => '11th'
+)
+);
+$this->db->insert_batch('student', $data);
+}
+}
+<?php
+class Student extends CI_Controller {
+public function __construct()
+{
+parent::__construct();
+$this->load->model('Student_model');
+}
+public function insert()
+{
+$this->Student_model->insert_students();
+echo '5 records inserted successfully';
+}
+}
+Q. 2) Consider any text paragraph. Preprocess the text to remove any special
+characters and digits.
+import re
+text = "Hello! This is an example text with @special characters and 123
+digits."
+# Remove special characters and digits using regular expressions
+clean_text = re.sub('[^a-zA-Z\s]+', '', text)
+print(clean_text)

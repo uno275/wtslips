@@ -1,0 +1,27 @@
+Create a XML file which gives details of books available in “Bookstore” from categories
+Yoga, Story, Technical with elements Book_Title, Book_Author, Book_Price.
+
+<bookstore>
+<yoga>
+<book>
+ <book_title>Yoga Basics</book_title>
+ <book_author>Ramdev</book_author>
+ <book_price>200</book_price>
+</book>
+</yoga>
+<story>
+<book>
+ <book_title>Stories</book_title>
+ <book_author>ABC</book_author>
+ <book_price>150</book_price>
+</book>
+</story>
+<technical>
+<book>
+ <book>
+ <book_title>PHP Guide</book_title>
+ <book_author>John</book_author>
+ <book_price>400</book_price>
+ </book>
+</technical>
+</bookstore

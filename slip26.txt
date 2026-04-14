@@ -1,0 +1,19 @@
+Q1.Create employee table as follows EMP (eno, ename, designation, salary). Write Ajax program to select the employees name and print the selected employee‟s details.
+
+CREATE TABLE emp(
+eno SERIAL PRIMARY KEY,
+ename VARCHAR(50),
+designation VARCHAR(50),
+salary INT
+);
+<?php
+$conn=pg_connect("host=linux1 dbname=test user=postgres password=123");
+$id=$_GET['q'];
+$res=pg_query($conn,"SELECT * FROM emp WHERE eno=$id");
+while($row=pg_fetch_assoc($res))
+{
+echo "Name: ".$row['ename']."<br>";
+echo "Designation: ".$row['designation']."<br>";
+echo "Salary: ".$row['salary'];
+}
+?>

@@ -1,0 +1,36 @@
+Q. 1) Write a PHP script to accept username and password. If in the first three chances, username and password entered is correct then display second form with “Welcome message” otherwise display error message. [Use Session]
+<?php
+session_start();
+if(isset($_SESSION['username'])) {
+header("Location: second_form.php");
+}
+$correct_username = "user123";
+$correct_password = "password123";
+// Initialize the number of attempts to 0
+$num_attempts = 0;
+if(isset($_POST['username']) && isset($_POST['password'])) {
+$num_attempts++;
+if($_POST['username'] == $correct_username && $_POST['password'] ==
+$correct_password) {
+$_SESSION['username'] = $_POST['username'];
+header("Location: second_form.php");
+}
+else {
+echo "<p>Invalid username or password. Please try again.</p>";
+}
+if($num_attempts >= 3) {
+echo "<p>Number of attempts exceeded. Please try again later.</p>";
+exit();
+}
+}
+?>
+<!-- HTML form for username and password -->
+<form method="POST">
+<label>Username:</label>
+<input type="text" name="username">
+<br>
+<label>Password:</label>
+<input type="password" name="password">
+<br>
+<input type="submit" value="Submit">
+</form>

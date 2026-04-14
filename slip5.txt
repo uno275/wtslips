@@ -1,0 +1,28 @@
+Q. 1) Create XML file named “Item.xml”with item-name, item-rate, item quantity Store the details of 5 Items of different Types
+<Items>
+<Item type="book">
+<Name>The Great Gatsby</Name>
+<Rate>12.99</Rate>
+<Quantity>10</Quantity>
+</Item>
+<Item type="music">
+<Name>Thriller</Name>
+<Rate>9.99</Rate>
+<Quantity>15</Quantity>
+</Item>
+<Item type="movie">
+<Name>The Godfather</Name>
+<Rate>14.99</Rate>
+<Quantity>8</Quantity>
+</Item>
+<Item type="game">
+<Name>Call of Duty</Name>
+<Rate>39.99</Rate>
+<Quantity>5</Quantity>
+</Item>
+<Item type="electronics">
+<Name>iPhone 12</Name>
+<Rate>799.99</Rate>
+<Quantity>3</Quantity>
+</Item>
+</Items>

@@ -1,0 +1,19 @@
+Q1Write a PHP script to create student.xml file which contains student roll no, name, address,college and course. Print students detail of specific course in tabular format after acceptingcourse as input.
+
+<?php
+$xml=simplexml_load_file("student.xml");
+$c=$_POST['course'];
+echo "<table border=1>";
+foreach($xml->student as $s)
+{
+if($s->course==$c)
+{
+ echo "<tr>";
+ echo "<td>".$s->rollno."</td>";
+ echo "<td>".$s->name."</td>";
+ echo "<td>".$s->course."</td>";
+ echo "</tr>";
+}
+}
+echo "</table>";
+?>

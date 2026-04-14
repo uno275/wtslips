@@ -1,0 +1,38 @@
+Q. 1) Write a Javascript program to accept name of student, change font color to red, font size to 18 if student name is present otherwise on clicking on empty text box display image which changes its size (Use onblur, onload,onmousehover, onmouseclick, onmouseup)
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Change font color and size on name input</title>
+</head>
+<body>
+<label for="studentName">Enter student name:</label>
+<input type="text" id="studentName" onblur="changeStyle()" />
+<br><br>
+<img src="nrclogo.png" id="randomImage" onload="changeImageSize()"
+onmouseover="increaseImageSize()" onmouseout="resetImageSize()"
+onmousedown="decreaseImageSize()" />
+<script type="text/javascript">
+function changeStyle() {
+let studentName = document.getElementById("studentName").value;
+if (studentName != "") {
+document.getElementById("studentName").style.color = "red";
+document.getElementById("studentName").style.fontSize =
+"18px";
+}
+}
+function changeImageSize() {
+document.getElementById("randomImage").style.width = "200px";
+}
+function increaseImageSize() {
+document.getElementById("randomImage").style.width = "300px";
+}
+function resetImageSize() {
+document.getElementById("randomImage").style.width = "200px";
+}
+function decreaseImageSize() {
+document.getElementById("randomImage").style.width = "100px";
+}
+</script>
+</body>
+</html>

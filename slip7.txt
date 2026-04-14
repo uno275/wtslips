@@ -1,0 +1,48 @@
+Q. 1) Write a PHP script to read “Movie.xml” file and print all MovieTitle and ActorName of file using DOMDocument Parser. “Movie.xml” file should contain following information with
+at least 5 recordswith values. MovieInfoMovieNo, MovieTitle, ActorName ,ReleaseYear
+
+<?php
+
+$xml = new DOMDocument();
+$xml->load("Movie.xml");
+
+$movies = $xml->getElementsByTagName("Movie");
+foreach ($movies as $movie) {
+$title = $movie->getElementsByTagName("MovieTitle")[0]->nodeValue;
+$actor = $movie->getElementsByTagName("ActorName")[0]->nodeValue;
+echo "Movie Title: " . $title . ", Actor Name: " . $actor . "<br>";
+}
+?>
+movies.xml
+<Movies>
+<Movie>
+<MovieNo>1</MovieNo>
+<MovieTitle>The Shawshank Redemption</MovieTitle>
+<ActorName>Tim Robbins</ActorName>
+<ReleaseYear>1994</ReleaseYear>
+</Movie>
+<Movie>
+<MovieNo>2</MovieNo>
+<MovieTitle>The Godfather</MovieTitle>
+<ActorName>Marlon Brando</ActorName>
+<ReleaseYear>1972</ReleaseYear>
+</Movie>
+<Movie>
+<MovieNo>3</MovieNo>
+<MovieTitle>The Dark Knight</MovieTitle>
+<ActorName>Heath Ledger</ActorName>
+<ReleaseYear>2008</ReleaseYear>
+</Movie>
+<Movie>
+<MovieNo>4</MovieNo>
+<MovieTitle>Pulp Fiction</MovieTitle>
+<ActorName>John Travolta</ActorName>
+<ReleaseYear>1994</ReleaseYear>
+</Movie>
+<Movie>
+<MovieNo>5</MovieNo>
+<MovieTitle>Forrest Gump</MovieTitle>
+<ActorName>Tom Hanks</ActorName>
+<ReleaseYear>1994</ReleaseYear>
+</Movie>
+</Movies>

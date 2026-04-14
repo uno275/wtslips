@@ -1,0 +1,73 @@
+Q. 1) Create TEACHER table as follows TEACHER(tno, tname, qualification,salary). Write Ajax program to select a teachers name and print the selectedteachers details.
+
+<?php
+// connect to the database
+$host = 'localhost';
+$user = root;
+$password = nrc;
+$dbname = ‘tynrc’;
+$con = mysqli_connect($host, $user, $password, $dbname);
+// check connection
+if (!$con) {
+die("Connection failed: " . mysqli_connect_error());
+}
+// retrieve teacher's details based on the selected teacher's name
+if (isset($_POST['teacher_name'])) {
+$teacher_name = $_POST['teacher_name'];
+$query = "SELECT * FROM TEACHER WHERE tname = '$teacher_name'";
+$result = mysqli_query($con, $query);
+if (mysqli_num_rows($result) > 0) {
+$row = mysqli_fetch_assoc($result);
+echo "Teacher ID: " . $row['tno'] . "<br>";
+echo "Teacher Name: " . $row['tname'] . "<br>";
+echo "Qualification: " . $row['qualification'] . "<br>";
+echo "Salary: " . $row['salary'] . "<br>";
+} else {
+echo "Teacher not found.";
+}
+}
+// close connection
+mysqli_close($con);
+?>
+Html file
+<html>
+<head>
+<title>Teacher Details</title>
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></scrip
+t>
+</head>
+<body>
+<form>
+<label for="teacher">Select Teacher:</label>
+<select id="teacher" name="teacher">
+<option value="">--Select--</option>
+<option value="Teacher 1">Teacher 1</option>
+<option value="Teacher 2">Teacher 2</option>
+<option value="Teacher 3">Teacher 3</option>
+<option value="Teacher 4">Teacher 4</option>
+<option value="Teacher 5">Teacher 5</option>
+</select>
+<br><br>
+<input type="button" value="Submit" onclick="getTeacherDetails()">
+</form>
+<div id="teacher-details"></div>
+<script>
+function getTeacherDetails() {
+var teacherName = document.getElementById("teacher").value;
+if (teacherName == "") {
+alert("Please select a teacher.");
+} else {
+$.ajax({
+type: "POST",
+url: "get_teacher_details.php",
+data: { teacher_name: teacherName },
+success: function(result) {
+$("#teacher-details").html(result);
+}
+});
+}
+}
+</script>
+</body>
+</html>

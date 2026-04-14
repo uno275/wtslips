@@ -1,0 +1,19 @@
+Q. 1) create a student.xml file containing at least 5 student information
+
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+<student>
+<rollno>101</rollno>
+<name>John Doe</name>
+<address>123 Main St, Anytown USA</address>
+<college>ABC College</college>
+<course>Computer Science</course>
+</student>
+<student>
+<rollno>102</rollno>
+<name>Jane Smith</name>
+<address>456 Oak St, Anytown USA</address>
+<college>XYZ College</college>
+<course>Business Administration</course>
+</student>
+</students>
